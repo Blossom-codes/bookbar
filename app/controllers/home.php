@@ -9,29 +9,38 @@ class Home extends Controller
 
         $this->view("home/index", ["name" => $user->name]);
     }
-    public function register()
+   
+    public function Login()
     {
-        if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['submit'])) {
+        if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['login'])) {
 
-            $email = $_POST['register_email'];
-            $password = $_POST['register_password'];
+            $email = $_POST['login_email'];
+            $password = $_POST['login_password'];
 
             if (!empty($email) && !empty($password)) {
 
-                $user = $this->model("Register");
-                if ($user->checkReader("$email")) {
-                    #user already exists
-                    $this->save_pop_up_error("Error", "Reader with that email already exists", "error", "Try Again");
-                    $this->view("home/index", ["errmsg" => "User Exists"]);
+                $user = $this->model("Signin");
+                if ($user->getReader("$email", "$password")) {
+                    $this->save_pop_up_success("Success", "Welcome", "success", "Thank you");
+                    // $this->view("home/index");
+                    // header("location: home/index");
                 } else {
-
-                    $user->setReader("$email", password_hash($password, PASSWORD_DEFAULT));
-                    $this->save_pop_up_success("Success", "Registration was successful", "success", "Welcome");
-                    $this->view("home/index", ["name" => $email, "msg" => "Sign up was successful"]);
+                    $this->save_pop_up_error("Error", "Couldn't login now", "error", "Try Again");
                 }
-            } else {
-                $this->view("home/index", ["errmsg" => "Registration Error"]);
             }
         }
+        $this->view("library/library_list");
+    }
+    public function Logout($user_id = "")
+    {
+
+        $user = $this->model("Signin");
+        if ($user->sign_out($user_id)) {
+            $this->save_pop_up_success("Logged Out!", "We hope to see you soon!", "success", "Thank you");
+        } else {
+            $this->save_pop_up_error("Error", "Couldn't logout now", "error", "Try Again");
+        }
+        
+        $this->view("home/index");
     }
 }

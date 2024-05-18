@@ -1412,6 +1412,6 @@
                 </div><!-- End .container -->
             </div><!-- End .blog-posts -->
         </main><!-- End .main -->
-
-      <!-- footer here -->
+      
+        <!-- footer here -->
     <!-- mobile menu here -->

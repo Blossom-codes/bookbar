@@ -199,6 +199,7 @@
 	} ?>
 </script>
 <?php
+// unset($_SESSION['loggedIn']);
 unset($_SESSION['success']);
 unset($_SESSION['error']);
 ?>
