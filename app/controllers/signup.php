@@ -15,15 +15,14 @@ class Signup extends Controller
                 if ($user->checkReader("$email")) {
                     #user already exists
                     $this->save_pop_up_error("Error", "Reader with that email already exists", "error", "Try Again");
-                    $this->view("home/index", ["errmsg" => "User Exists"]);
                 } else {
 
                     $user->setReader("$email", password_hash($password, PASSWORD_DEFAULT));
                     $this->save_pop_up_success("Success", "Registration was successful", "success", "Welcome");
-                    $this->view("home/index", ["name" => $email, "msg" => "Sign up was successful"]);
                 }
-            } else {
-                $this->view("home/index", ["errmsg" => "Registration Error"]);
-            }
+            } 
         }
-    }}
+        $this->nav("navbar");
+        $this->view("home/index", ["errmsg" => "Registration Error"]);
+    }
+}

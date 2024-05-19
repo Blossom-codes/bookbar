@@ -20,6 +20,7 @@ class App
             
         }
         require_once '../app/controllers/' . $this->controller . '.php';
+        // require_once '../app/include/navbar.php';
         $this->controller = new $this->controller;
 
         #wanna check if the method exists

@@ -21,6 +21,14 @@ class Controller
             return false;
         }
     }
+    public function nav($nav, $data = [])
+    {
+        if (file_exists("../app/include/$nav.php")) {
+            require_once "../app/include/$nav.php";
+        } else {
+            return false;
+        }
+    }
     public function save_pop_up_error($title, $error_msg, $icon, $button)
     {
         return  $_SESSION['error'] = [
